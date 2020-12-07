@@ -5,8 +5,8 @@ const jwt = require('jsonwebtoken');
 
 
 function index(req, res) {
-    usuarioM.find({}).then(users => {
-        if (users.length) return res.status(200).send({ users });
+    usuarioM.find({}).then(usuarios => {
+        if (usuarios.length) return res.status(200).send({ usuarios });
         return res.status(204).send({ message: 'NO CONTENT' });
     }).catch(error => res.status(500).send({ error }));
 }
@@ -26,8 +26,8 @@ function create(req, res) {
 function show(req, res) {
     if (req.body.error) return res.status(500).send({ error });
     if (!req.body.users) return res.status(404).send({ message: 'NOT FOUND' });
-    let usuarios = req.body.users;
-    return res.status(200).send({ usuarios });
+    let usuario = req.body.users;
+    return res.status(200).send({ usuario });
 }
 
 function update(req, res) {
@@ -90,7 +90,7 @@ function find(req, res, next) {
 
 
 function privateTasks(req, res) {
-    
+
     usuarioM.find().then(users => {
         //si no existen users
         if (!users.length) return next();
@@ -106,7 +106,7 @@ function privateTasks(req, res) {
 
 function verifyToken(req, res, next) {
     if (!req.headers.authorization) {
-        return res.status(401).send('No posee headers para esta Request');
+        return res.status(401).send({ error: 'No posee headers para esta Request' });
     }
     const token = req.headers.authorization.split(' ')[1]; // para separar el token de bearer, toma solo el token
     if (token === 'null') {

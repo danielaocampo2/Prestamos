@@ -1,14 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const User = require('./routes/usuario');
+const usuario = require('./routes/usuario');
 const Auth = require('./routes/auth');
 const app = express();
 const cors = require('cors');
-const usuario = require('./models/usuario');
 app.use(cors());
 
 //para poder manejar jsons, peticiones y respuestas 
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.json({ limit: '50mb' }));
 //se dice que no utilizamos peticiones directamente en formularios, sino que se procesa en formato json
 app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }));
 
