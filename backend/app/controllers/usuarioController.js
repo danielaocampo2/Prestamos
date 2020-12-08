@@ -1,35 +1,36 @@
-const usuarioM = require('../models/usuario');
-const CONFIG = require('../config/config');
-const jwt = require('jsonwebtoken');
+//controller para el usuario
+const usuarioM = require('../models/usuario');//Cargamos el modelo del usuario
+const CONFIG = require('../config/config');//cargamos la configuracion de la conexion a la base de datos
+const jwt = require('jsonwebtoken');//cargamos el modulo jsonwebtoken
 //const nodemailer = require('nodemailer');
 
-
+//Método encargado de estraerme todos los usuarios que hay en la base de datos
 function index(req, res) {
     usuarioM.find({}).then(usuarios => {
         if (usuarios.length) return res.status(200).send({ usuarios });
         return res.status(204).send({ message: 'NO CONTENT' });
     }).catch(error => res.status(500).send({ error }));
 }
-
+//Método que crea un nuevo registro de usuario en la base de datos.
 function create(req, res) {
     //se inicializa una variable con los datos de mi body
     let usuario = new usuarioM(req.body);
-
-    //guardo con el metodo save el nuevo usuario
+    //guardo con el metodo save el nuevo usuario en la base de datos
     usuario.save().then(user => {
+        //Mensaje de exito
         return res.status(201).send({ user, message: "El usuario fue creado exitosamente" });
 
-    }).catch(error => res.status(422).send({ message: "El usuario ya existe", error }));
+    }).catch(error => res.status(422).send({ message: "El usuario ya existe", error }));//Mensaje cuando se intenta registrar un usuario que ya existe.
 }
 
-
+//Método que me busca un usuario especifico, buscado por el user_id.
 function show(req, res) {
     if (req.body.error) return res.status(500).send({ error });
     if (!req.body.users) return res.status(404).send({ message: 'NOT FOUND' });
     let usuario = req.body.users;
     return res.status(200).send({ usuario });
 }
-
+//Funcion utilizada para actualizar los datos del usuario
 function update(req, res) {
     if (req.body.error) return res.status(500).send({ error });
     if (!req.body.users) return res.status(404).send({ message: 'NOT FOUND' });
@@ -56,7 +57,7 @@ function update(req, res) {
         res.status(200).send({ message: "Actualizacion correcta" })
     });
 }
-
+//Método utilizado para actualizar la contraseña del usuario
 function updatePassword(req, res) {
     if (req.body.error) return res.status(500).send({ error });
     //Se valida si no hay Users.
@@ -121,7 +122,7 @@ function verifyToken(req, res, next) {
 
 
 
-
+//Exportamos los métodos para utilizarlos en el modulo routers
 module.exports = {
     index,
     show,

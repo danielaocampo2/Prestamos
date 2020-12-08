@@ -1,6 +1,8 @@
-const moongose = require('mongoose');
-const CONFIG = require('./config');
+//Conexion a la base de datos
+const moongose = require('mongoose');//Cargamos el modulo Mongoose
+const CONFIG = require('./config');//Cargamos el modulo de configuracion
 
+//Método por el cual hacemos conexión a la base de datos.
 module.exports = {
     connection: null,
         connect: function(){
