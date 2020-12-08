@@ -2,6 +2,7 @@
 const usuarioM = require('../models/usuario');//Cargamos el modelo del usuario
 const CONFIG = require('../config/config');//cargamos la configuracion de la conexion a la base de datos
 const jwt = require('jsonwebtoken');//cargamos el modulo jsonwebtoken
+const usuario = require('../models/usuario');
 //const nodemailer = require('nodemailer');
 
 //Método encargado de estraerme todos los usuarios que hay en la base de datos
@@ -54,8 +55,7 @@ function update(req, res) {
         names: req.body.names,
         email: req.body.email,
         phone: req.body.phone,
-        nicknames:req.body.nicknames,
-        password:req.body.password
+        nicknames:req.body.nicknames
     };
     usuarioM.updateOne(query, update, (err, user) => {
         if (err) res.status(500).send({ message: `Error ${err}` })
