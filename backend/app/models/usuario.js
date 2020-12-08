@@ -4,12 +4,12 @@ const bcrypt = require('bcrypt');//Cargamos el modulo bcrypt para hacer un encri
 
 const usuarioSchema = new mongoose.Schema({
     //Nombres del usuario
-    name: {
+    names: {
         type: String,
         required: true
     },
     //Apellidos
-    apellidos:{
+    nicknames:{
         type:String,
         required:true
     },
