@@ -54,7 +54,8 @@ function update(req, res) {
         names: req.body.names,
         email: req.body.email,
         phone: req.body.phone,
-        nicknames:req.body.nicknames
+        nicknames:req.body.nicknames,
+        password:req.body.password
     };
     usuarioM.updateOne(query, update, (err, user) => {
         if (err) res.status(500).send({ message: `Error ${err}` })
