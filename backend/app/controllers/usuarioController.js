@@ -37,8 +37,8 @@ function update(req, res) {
     let query = {};
     query[req.params.key] = req.params.value;
     let ussuario = req.body.users[0];
-    if (req.body.name == undefined || req.body.name == "" || req.body.name == null) {
-        req.body.name = ussuario.name;
+    if (req.body.names == undefined || req.body.names == "" || req.body.names == null) {
+        req.body.names = ussuario.names;
     }
     if (req.body.email == undefined || req.body.email == "" || req.body.email == null) {
         req.body.email = ussuario.email;
@@ -46,11 +46,15 @@ function update(req, res) {
     if (req.body.phone == undefined || req.body.phone == "" || req.body.phone == null) {
         req.body.phone = ussuario.phone;
     }
+    if (req.body.nicknames == undefined || req.body.nicknames == "" || req.body.nicknames == null) {
+        req.body.nicknames = ussuario.nicknames;
+    }
 
     let update = {
-        name: req.body.name,
+        names: req.body.names,
         email: req.body.email,
-        phone: req.body.phone
+        phone: req.body.phone,
+        nicknames:req.body.nicknames
     };
     usuarioM.updateOne(query, update, (err, user) => {
         if (err) res.status(500).send({ message: `Error ${err}` })
